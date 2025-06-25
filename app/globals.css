@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cool Blue: hsl(217, 91%, 60%) -> #3b82f6 (Tailwind Blue 500) */
+    /* Darker Cool Blue for borders/muted: hsl(215, 50%, 23%) */
+    /* Black: hsl(0, 0%, 0%) */
+    /* Near Black for cards: hsl(0, 0%, 8%) */
+    /* White: hsl(0, 0%, 100%) */
+    /* Off-White/Light Gray for text on dark: hsl(0, 0%, 95%) */
+
+    --background: 0 0% 0%; /* Black */
+    --foreground: 0 0% 95%; /* Off-White */
+
+    --card: 0 0% 8%; /* Near Black */
+    --card-foreground: 0 0% 95%; /* Off-White */
+
+    --popover: 0 0% 8%; /* Near Black */
+    --popover-foreground: 0 0% 95%; /* Off-White */
+
+    --primary: 217 91% 60%; /* Cool Blue */
+    --primary-foreground: 0 0% 98%; /* White/Off-White for contrast on blue */
+
+    --secondary: 215 30% 18%; /* Darker, less saturated blue/gray */
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 215 30% 18%;
+    --muted-foreground: 0 0% 60%; /* Lighter Gray for muted text */
+
+    --accent: 217 91% 60%; /* Cool Blue as accent */
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 215 30% 25%; /* Dark blue/gray border */
+    --input: 215 30% 20%; /* Dark blue/gray input background */
+    --ring: 217 91% 60%; /* Cool Blue for focus rings */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Same as :root for a consistent dark theme */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 215 30% 18%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 215 30% 18%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 215 30% 25%;
+    --input: 215 30% 20%;
+    --ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Simple pulse animation for the globe */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 3px hsl(var(--primary) / 0.5));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.8));
+  }
+}
+
+.pixel-globe-animation {
+  animation: pulse-glow 3s infinite ease-in-out;
+}

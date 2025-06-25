@@ -1,0 +1,156 @@
+/* Adjusted for new color scheme */
+/* Using Tailwind's @apply for prose styling is generally preferred with the typography plugin, */
+/* but this provides manual overrides if needed or if the plugin isn't fully configured. */
+
+.prose {
+  color: hsl(var(--foreground));
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose h1 {
+  font-size: 2em;
+}
+.prose h2 {
+  font-size: 1.5em;
+}
+.prose h3 {
+  font-size: 1.25em;
+}
+.prose h4 {
+  font-size: 1em;
+}
+
+.prose p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+}
+
+.prose a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+.prose a:hover {
+  opacity: 0.8;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+  color: hsl(var(--foreground));
+}
+.prose ul {
+  list-style-type: disc;
+}
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+.prose li::marker {
+  color: hsl(var(--muted-foreground));
+}
+
+.prose blockquote {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding-left: 1em;
+  border-left: 0.25em solid hsl(var(--border));
+  color: hsl(var(--muted-foreground));
+}
+
+.prose pre {
+  background-color: hsl(var(--card)); /* Match card background */
+  color: hsl(var(--foreground));
+  padding: 1em;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+  overflow-x: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  font-family: theme("fontFamily.mono");
+}
+
+.prose code {
+  font-family: theme("fontFamily.mono");
+  background-color: hsl(var(--muted) / 0.5); /* Subtle background for inline code */
+  color: hsl(var(--primary)); /* Make inline code stand out with blue */
+  padding: 0.2em 0.4em;
+  border-radius: calc(var(--radius) - 4px);
+  font-size: 0.9em;
+}
+
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit; /* Inherit from pre for block code */
+}
+
+.prose table {
+  width: 100%;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  border-collapse: collapse;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid hsl(var(--border));
+  padding: 0.5em 0.75em;
+  color: hsl(var(--foreground));
+}
+
+.prose th {
+  font-weight: 600;
+  background-color: hsl(var(--muted) / 0.3);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+}
+
+/* Ensure dark mode styles are consistent if not using Tailwind typography plugin's dark variant */
+.dark .prose {
+  /* Most styles should inherit correctly from the updated CSS variables */
+}
+.dark .prose code {
+  background-color: hsl(var(--muted) / 0.7);
+  color: hsl(var(--primary));
+}
+.dark .prose pre {
+  background-color: hsl(var(--card));
+  border-color: hsl(var(--border));
+}
