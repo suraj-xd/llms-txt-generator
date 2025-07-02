@@ -12,7 +12,6 @@ export default function MarkdownFetcherPage() {
     error,
     loadingMessageIndex,
     handleSubmit,
-    isDynamicPage,
   } = useMarkdownFetcher();
 
   return (
@@ -24,7 +23,6 @@ export default function MarkdownFetcherPage() {
       error={error}
       loadingMessageIndex={loadingMessageIndex}
       handleSubmit={handleSubmit}
-      isDynamicPage={isDynamicPage}
     />
   );
 }

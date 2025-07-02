@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { fetchMarkdownFromUrl, normalizeURL, isValidURL, reconstructUrlFromParams } from "@/lib/utils";
+import { fetchMarkdownFromUrl, normalizeURL, isValidURL } from "@/lib/utils";
 import { loadingMessages } from "@/lib/constants";
 
 export function useMarkdownFetcher() {
@@ -13,49 +12,6 @@ export function useMarkdownFetcher() {
   const [error, setError] = useState<string | null>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const { toast } = useToast();
-  const router = useRouter();
-  const params = useParams();
-
-  // Handle URL from route parameters
-  useEffect(() => {
-    const urlFromParams = params?.url;
-    if (urlFromParams) {
-      const reconstructedUrl = reconstructUrlFromParams(urlFromParams);
-      
-      if (reconstructedUrl) {
-        setUrl(reconstructedUrl);
-        // Auto-fetch the content
-        handleAutoFetch(reconstructedUrl);
-      } else {
-        // Invalid URL format, show error and redirect to home
-        setError("Invalid URL format. Please provide a valid URL.");
-        setTimeout(() => {
-          router.push('/');
-        }, 3000);
-      }
-    }
-  }, [params, router]);
-
-  const handleAutoFetch = async (targetUrl: string) => {
-    setIsLoading(true);
-    setMarkdown(null);
-    setError(null);
-
-    const { data, error: fetchError } = await fetchMarkdownFromUrl(targetUrl);
-
-    setIsLoading(false);
-    if (fetchError) {
-      setError(fetchError);
-      // On error, redirect to home after showing error briefly
-      if (params?.url) {
-        setTimeout(() => {
-          router.push('/');
-        }, 3000);
-      }
-    } else if (data) {
-      setMarkdown(data);
-    }
-  };
 
   // Cycle through loading messages
   useEffect(() => {
@@ -73,6 +29,21 @@ export function useMarkdownFetcher() {
       if (interval) clearInterval(interval);
     };
   }, [isLoading]);
+
+  const handleFetch = async (targetUrl: string) => {
+    setIsLoading(true);
+    setMarkdown(null);
+    setError(null);
+
+    const { data, error: fetchError } = await fetchMarkdownFromUrl(targetUrl);
+
+    setIsLoading(false);
+    if (fetchError) {
+      setError(fetchError);
+    } else if (data) {
+      setMarkdown(data);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -99,12 +70,8 @@ export function useMarkdownFetcher() {
       });
     }
     
-    if (params?.url) {
-        await handleAutoFetch(normalizedUrl);
-    } else {
-        const safeUrl = normalizedUrl.replace(/^https?:\/\//, '');
-        router.push(`/${safeUrl}`);
-    }
+    // Fetch the content without any routing
+    await handleFetch(normalizedUrl);
   };
   
   return {
@@ -115,6 +82,6 @@ export function useMarkdownFetcher() {
     error,
     loadingMessageIndex,
     handleSubmit,
-    isDynamicPage: !!params?.url,
+    isDynamicPage: false, // Always false since we're not using dynamic routing
   };
 } 

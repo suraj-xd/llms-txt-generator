@@ -19,7 +19,6 @@ interface MarkdownFetcherUIProps {
   error: string | null;
   loadingMessageIndex: number;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  isDynamicPage: boolean;
 }
 
 export function MarkdownFetcherUI({
@@ -30,7 +29,6 @@ export function MarkdownFetcherUI({
   error,
   loadingMessageIndex,
   handleSubmit,
-  isDynamicPage,
 }: MarkdownFetcherUIProps) {
   const { toast } = useToast();
 
@@ -81,11 +79,6 @@ export function MarkdownFetcherUI({
                 <AlertTitle>Error</AlertTitle>
                 <AlertDescription>
                   {error}
-                  {isDynamicPage && (
-                    <div className="mt-2 text-sm">
-                      Redirecting to home page...
-                    </div>
-                  )}
                 </AlertDescription>
               </Alert>
             )}
